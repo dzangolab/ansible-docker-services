@@ -8,7 +8,7 @@ mailhog_domain: ""
 
 phpmyadmin: false
 phpmyadmin_domain: ""
-phpmyadmin_host: ""
+phpmyadmin_hosts: []
 
 services_network: services
 services_state: started
