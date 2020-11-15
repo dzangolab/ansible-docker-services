@@ -13,7 +13,7 @@
   template:
     dest: "{{ deploy_dir }}/services.yml"
     group: "{{ deploy_group }}"
-    owner: "{{ deplpy_user }}"
+    owner: "{{ deploy_user }}"
     src: "templates/services.yml.j2"
 
 - name: Start services
