@@ -1,0 +1,16 @@
+---
+deploy_dir: ""
+deploy_group: www-data
+deploy_user: www-data
+
+mailhog: false
+mailhog_domain: ""
+
+phpmyadmin: false
+phpmyadmin_domain: ""
+phpmyadmin_hosts: []
+
+services_network: services
+services_state: started
+
+tls_resolver: traefik

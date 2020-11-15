@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+{% if mailhog %}
+  mailhog:
+    container_name: mailhog
+    image: mailhog/mailhog:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mailhog.entrypoints=websecure"
+      - "traefik.http.routers.mailhog.rule=Host(`{{ mailhog_domain }}`)"
+      - "traefik.http.routers.mailhog.tls=true"
+      - "traefik.http.routers.mailhog.tls.certresolver={{ tls_resolver }}"
+      - "traefik.http.routers.mailhog.tls.domains[0].main={{ mailhog_domain }}"
+      - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
+    networks:
+      - "{{ services_network }}"
+    restart: unless-stopped
+{% endif %}
+
+{% if phpmyadmin %}
+  phpmyadmin:
+    container_name: phpmyadmin
+    environment:
+      PMA_HOSTS: "{{ phpmyadmin_host }}"
+    image: phpmyadmin/phpmyadmin:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.phpmyadmin.entrypoints=websecure"
+      - "traefik.http.routers.phpmyadmin.rule=Host(`{{ phpmyadmin_domain }}`)"
+      - "traefik.http.routers.phpmyadmin.tls=true"
+      - "traefik.http.routers.phpmyadmin.tls.certresolver={{ tls_resolver }}"
+      - "traefik.http.routers.phpmyadmin.tls.domains[0].main={{ phpmyadmin_domain }}"
+    networks:
+      - "{{ services_network }}"
+{% endif %}
+
+networks:
+  {{ services_network }}:
+    external: true

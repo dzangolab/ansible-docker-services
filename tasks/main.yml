@@ -1,0 +1,29 @@
+---
+- name: Ensure directory exist
+  become: true
+  file:
+    group: "{{ deploy_group }}"
+    owner: "{{ deploy_user }}"
+    path: "{{ deploy_dir }}"
+    state: directory
+    recurse: yes
+
+- name: Copy files
+  become: true
+  template:
+    dest: "{{ deploy_dir }}/services.yml"
+    group: "{{ deploy_group }}"
+    owner: "{{ deplpy_user }}"
+    src: "templates/services.yml.j2"
+
+- name: Start services
+  command: docker-compose -f services.yml up -d
+  args:
+    chdir: "{{ deploy_dir }}"
+  when: services_state == "started"
+
+- name: Stop services
+  command: docker-compose -f services.yml down
+  args:
+    chdir: "{{ deploy_dir }}"
+  when: services_state == "stopped"
