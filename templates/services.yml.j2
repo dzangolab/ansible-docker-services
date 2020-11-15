@@ -22,7 +22,8 @@ services:
   phpmyadmin:
     container_name: phpmyadmin
     environment:
-      PMA_HOSTS: "{{ phpmyadmin_host }}"
+      PMA_ABSOLUTE_URI: "{{ https://{{ phpmyadmin_domain }}"
+      PMA_HOST: "{{ phpmyadmin_host }}"
     image: phpmyadmin/phpmyadmin:latest
     labels:
       - "traefik.enable=true"
