@@ -9,10 +9,10 @@ services:
   mariadb:
     container_name: mariadb
     environment:
-      - "MARIADB_DATABASE={{ mariadb_database }}"
-      - "MARIADB_ROOT_PASSWORD={{ mariadb_root_password }}"
-      - "MARIADB_PASSWORD={{ mariadb_password }}"
-      - "MARIADB_USER={{ mariadb_user }}"
+      - "MYSQL_DATABASE={{ mariadb_database }}"
+      - "MYSQL_ROOT_PASSWORD={{ mariadb_root_password }}"
+      - "MYSQL_PASSWORD={{ mariadb_password }}"
+      - "MYSQL_USER={{ mariadb_user }}"
     image: mariadb:latest
     labels:
       - "traefik.enable=false"
