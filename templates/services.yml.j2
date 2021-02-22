@@ -1,6 +1,22 @@
 version: "3.7"
 
 services:
+{% if mariadb %}
+  mariadb:
+    container_name: mariadb
+    environment:
+      - "MARIADB_DATABASE={{ mariadb_database }}"
+      - "MARIADB_ROOT_PASSWORD={{ mariadb_root_password }}"
+      - "MARIADB_PASSWORD={{ mariadb_password }}"
+      - "MARIADB_USER={{ mariadb_user }}"
+    image: mariadb:latest
+    labels:
+      - "traefik.enable=false"
+    networks:
+     - "{{ network }}"
+    restart: unless-stopped
+{% endif %}
+
 {% if mailhog %}
   mailhog:
     container_name: mailhog

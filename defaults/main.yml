@@ -6,11 +6,17 @@ deploy_user: www-data
 mailhog: false
 mailhog_domain: ""
 
+mariadb: false
+mariadb_database: ""
+mariadb_password: ""
+mariadb_root_password: ""
+mariadb_user: ""
+
 phpmyadmin: false
 phpmyadmin_domain: ""
 phpmyadmin_hosts: []
 
-services_network: services
-services_state: started
+network: services
+state: started
 
 tls_resolver: traefik
