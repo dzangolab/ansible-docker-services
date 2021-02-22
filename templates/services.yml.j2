@@ -1,5 +1,9 @@
 version: "3.7"
 
+networks:
+  {{ network }}:
+    external: true
+
 services:
 {% if mariadb %}
   mariadb:
@@ -30,7 +34,7 @@ services:
       - "traefik.http.routers.mailhog.tls.domains[0].main={{ mailhog_domain }}"
       - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
     networks:
-      - "{{ services_network }}"
+      - "{{ network }}"
     restart: unless-stopped
 {% endif %}
 
@@ -49,9 +53,5 @@ services:
       - "traefik.http.routers.phpmyadmin.tls.certresolver={{ tls_resolver }}"
       - "traefik.http.routers.phpmyadmin.tls.domains[0].main={{ phpmyadmin_domain }}"
     networks:
-      - "{{ services_network }}"
+      - "{{ network }}"
 {% endif %}
-
-networks:
-  {{ services_network }}:
-    external: true
